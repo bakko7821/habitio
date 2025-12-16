@@ -6,8 +6,8 @@ export const lightColors = {
 };
 
 export const darkColors = {
-  background: '#0f172a',
-  surface: '#1e293b',
+  background: '#1c1c1c',
+  surface: '#292929',
   primary: '#38bdf8',
   text: '#f8fafc',
 };

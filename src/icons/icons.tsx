@@ -35,14 +35,14 @@ export const BurgerIcon = ({
 }: IconProps) => {
     return (
         <Svg
-            width={width}
-            height={height}
-            viewBox="0 0 24 24"
-            fill="none"
-        >
-            <Path d="M5 12H20" stroke={stroke} stroke-width="2" stroke-linecap="round" />
-            <Path d="M5 17H20" stroke={stroke} stroke-width="2" stroke-linecap="round"/>
-            <Path d="M5 7H20" stroke={stroke} stroke-width="2" stroke-linecap="round" />
-        </Svg>
+        width={width}
+        height={height}
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <Path d="M5 12H20" stroke={stroke} stroke-width="2" stroke-linecap="round" />
+        <Path d="M5 17H20" stroke={stroke} stroke-width="2" stroke-linecap="round"/>
+        <Path d="M5 7H20" stroke={stroke} stroke-width="2" stroke-linecap="round" />
+    </Svg>
     )
 }
