@@ -13,7 +13,7 @@ bot.onText(/\/start/, (msg) => {
         [
           {
             text: 'Open Mini App',
-            web_app: { url: 'https://sepulchral-slower-kristle.ngrok-free.dev' }
+            web_app: { url: 'https://my-tg-app.loca.lt' }
           }
         ]
       ]

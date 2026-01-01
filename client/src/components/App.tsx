@@ -1,62 +1,45 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function App() {
-  const [status, setStatus] = useState("Starting...");
+  const tg = window.Telegram?.WebApp;
+  const isTelegram = Boolean(tg);
 
   useEffect(() => {
-    alert("window.Telegram123: " + (window.Telegram ? "exists" : "undefined"));
-  }, []);
+    if (!tg) return;
 
-  useEffect(() => {
-    console.log("App mounted");
+    tg.ready();
+    tg.expand();
 
-    // Проверяем window.Telegram
-    if (!window.Telegram) {
-      console.warn("window.Telegram is undefined");
-      setTimeout(() => setStatus("window.Telegram is undefined — likely not in Mini App"), 0);
-      alert("window.Telegram is undefined");
-      return;
-    }
-
-    const tg = window.Telegram.WebApp;
-    console.log("window.Telegram.WebApp found:", tg);
-
-    if (!tg.initData) {
-      console.warn("initData is empty or undefined");
-      setTimeout(() => setStatus("initData missing"), 0);
-      alert("initData missing");
-      return;
-    }
-
+    console.log("Telegram WebApp:", tg);
     console.log("initData:", tg.initData);
-    setTimeout(() => setStatus("Telegram WebApp detected, fetching auth..."), 0);
+    console.log("initDataUnsafe:", tg.initDataUnsafe);
+  }, [tg]);
 
+  return (
+    <div style={{ padding: 16, fontFamily: "sans-serif" }}>
+      <h3>Telegram Mini App</h3>
 
-    fetch("http://localhost:3000/api/auth/telegram", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ initData: tg.initData }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log("Auth response:", data);
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          setStatus(`User logged in: ${data.user.username || data.user.first_name}`);
-          alert(`User logged in: ${data.user.username || data.user.first_name}`);
-        } else {
-          setStatus("Login failed");
-          alert("Login failed");
-        }
-      })
-      .catch(err => {
-        console.error("Fetch error:", err);
-        setStatus("Error contacting server");
-        alert("Error contacting server: " + err);
-      });
-  }, []);
+      <p>
+        <strong>Environment:</strong>{" "}
+        {isTelegram ? "Telegram" : "Browser"}
+      </p>
 
-  return <p>{status}</p>;
+      {isTelegram ? (
+        <>
+          <p>
+            <strong>User:</strong>{" "}
+            {tg?.initDataUnsafe?.user
+              ? `${tg.initDataUnsafe.user.first_name} (id: ${tg.initDataUnsafe.user.id})`
+              : "No user data"}
+          </p>
+        </>
+      ) : (
+        <p style={{ color: "orange" }}>
+          Open this app via Telegram bot to access Mini App features.
+        </p>
+      )}
+    </div>
+  );
 }
 
 export default App;
