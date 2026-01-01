@@ -1,0 +1,88 @@
+:root {
+  --background-color: #0F0F10;
+  --background-card-color: #1A1B1E;
+  --background-card-hover-color: #232528;
+  --main-color: #6AA8F9;
+  --main-color-hover: #5B94E0;
+  --red: #780000;
+  --red-hover: #B56161;
+  --main-text-color: #FFFFFF;
+  --second-text-color: #818181;
+  --second-text-color-hover: #6A6A6A;
+
+  --rem0_625: clamp(0.5rem, 2vw, 0.625rem);
+  --rem0_875: clamp(0.625rem, 2vw, 0.875rem);
+  --rem1: clamp(0.875rem, 2vw, 1rem);
+  --rem1_5: clamp(1rem, 2vw, 1.5rem);
+  --rem2: clamp(1.8rem, 2vw, 2rem);
+}
+
+[data-theme="light"] {
+  --background-color: #FFFFFF;
+  --background-card-color: #F0F0F0;
+  --background-card-hover-color: #E0E0E0;
+  --main-text-color: #000000;
+}
+
+$background-color: var(--background-color);
+$background-card-color: var(--background-card-color);
+$background-card-hover-color: var(--background-card-hover-color);
+$main-color: var(--main-color);
+$main-color-hover: var(--main-color-hover);
+$red: var(--red);
+$red-hover: var(--red-hover);
+$main-text-color: var(--main-text-color);
+$second-text-color: var(--second-text-color);
+$second-text-color-hover: var(--second-text-color-hover);
+
+$rem0_625: clamp(0.5rem, 2vw, 0.625rem);
+$rem0_875: clamp(0.625rem, 2vw, 0.875rem);
+$rem1: clamp(0.875rem, 2vw, 1rem);
+$rem1_5: clamp(1rem, 2vw, 1.5rem);
+$rem2: clamp(1.8rem, 2vw, 2rem);
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+@for $i from 1 through 100 {
+  .g#{$i} {
+    gap: #{$i}px;
+  }
+}
+
+.rem0_875 {
+    font-size: $rem0_875;
+    line-height: 1.5;
+}
+
+.rem1 {
+    font-size: $rem1;
+    line-height: 1.5;
+}
+
+.rem1_5 {
+    font-size: $rem1_5;
+    line-height: 1.4;
+}
+
+.rem2 {
+    font-size: $rem2;
+    line-height: 1.3;
+}
