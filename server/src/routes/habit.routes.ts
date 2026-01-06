@@ -1,8 +1,9 @@
 import { Router } from "express"
-import { getHabitsByUser } from "../controllers/habit.controller"
+import { createHabit, getHabitsByUser } from "../controllers/habit.controller"
 
 const router = Router()
 
-router.get("/habits/:user_id", getHabitsByUser)
+router.get("/all-habits/:user_id", getHabitsByUser)
+router.post("/new-habit", createHabit)
 
 export default router

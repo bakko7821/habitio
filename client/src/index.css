@@ -13,6 +13,10 @@
   --hint-color: #5F6368;
 }
 
+* {
+  font-family: "Inter", sans-serif;
+}
+
 nav a svg {
   width: 48px;
   height: 48px;
@@ -74,7 +78,7 @@ input, select {
 .floating-input {
   border: 2px solid var(--hint-color);
   padding: 12px;
-  border-radius: 16px;
+  border-radius: 12px;
   position: relative;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -99,6 +103,11 @@ input, select {
   background-color: var(--bg-color);
   padding: 0;
   pointer-events: none;
+  color: var(--hint-color);
+}
+
+.floating-input label span {
+  color: red;
 }
 
 .floating-input input:focus + label,
@@ -114,7 +123,7 @@ input, select {
 
 .floating-input input:not(:focus) + label,
 .floating-input select:not(:focus) + label {
-  color: var(--text-color)
+  color: var(--hint-color)
 }
 
 /* Скрываем placeholder, когда есть текст или фокус */
@@ -123,7 +132,7 @@ input, select {
 }
 
 .floating-input input[type='color'] {
-  width: 24px;
+  width: 48px;
   height: 24px;
   border-radius: 6px;
 }
@@ -131,7 +140,7 @@ input, select {
 .floating-input input[type='color']:focus + label,
 .floating-input input[type='color']:not(:placeholder-shown) + label {
   top: -12px;
-  left: 6px;
+  left: 12px;
   padding: 0 4px;
   font-size: 0.75rem;
   color: var(--button-color);

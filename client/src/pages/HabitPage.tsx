@@ -1,10 +1,30 @@
 import { disableColor, hintColor, secondaryBgColor, textColor } from "../types/variables"
 import type { Habit } from "../types/types"
 import { ArrowIcon} from "../assets/icons"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const HabitPage = () => {
-    const [habits] = useState<Habit[]>([])
+    const [habits, setHabits] = useState<Habit[]>([])
+    const userId = 1
+    useEffect(() => {
+        const fetchHabits = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/api/habits/all-habits/${userId}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                if (!res.ok) throw new Error("Ошибка при загрузке привычек")
+                const data: Habit[] = await res.json()
+                setHabits(data)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+
+        fetchHabits()
+    }, [userId])
 
     const toShortDay = (day: string) => day.slice(0, 3);
 
@@ -69,7 +89,7 @@ export const HabitPage = () => {
                                             {week.days.map((day) => (
                                                 <div 
                                                     key={day.date}
-                                                    style={{ backgroundColor: !day.status ? habit.icon.color : disableColor }}
+                                                    style={{ backgroundColor: day.status ? habit.icon.color : disableColor }}
                                                     className="w-[18px] h-[18px] rounded-md">
 
                                                 </div>

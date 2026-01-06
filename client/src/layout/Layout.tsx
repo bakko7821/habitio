@@ -26,7 +26,7 @@ export const Layout = () => {
         className="p-4 gap-4 flex flex-col items-center justify-between">
       <Header title={title} showHabitButton={showHabitButton}  />
 
-      <main className="flex-1 w-full">
+      <main className="flex flex-col flex-1 w-full h-full">
         <Outlet />
       </main>
 
