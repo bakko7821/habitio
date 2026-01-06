@@ -1,5 +1,6 @@
 export interface HeaderProps {
     title: string;
+    showHabitButton?: boolean
 }
 
 // Habit interfaces

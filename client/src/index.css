@@ -50,15 +50,19 @@ nav a svg {
   }
 }
 
-.arrow-button svg {
+svg {
   width: 24px;
   height: 24px;
 }
 
 .arrow-button-active svg {
-  width: 24px;
-  height: 24px;
   transform: rotate(180deg);
 }
+
+.addHabbitButton svg {
+  width: 28px;
+  height: 28px;
+}
+
 
 
