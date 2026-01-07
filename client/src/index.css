@@ -96,6 +96,7 @@ input, select {
 
 /* Плавающий label */
 .floating-input label {
+  white-space: nowrap;
   transition: all 0.3s ease;
   position: absolute;
   left: 12px;
@@ -150,3 +151,44 @@ input, select {
   color: var(--text-color)
 }
 
+.floating-input.pickIcon button svg {
+  width: 100%;
+  height: 100%;
+}
+
+.floating-input.pickIcon button.close svg {
+  width: 24px;
+  height: 24px;
+}
+
+.floating-input.pickIcon button img {
+  width: 48px;
+  height: 48px;
+}
+
+.floating-input.pickIcon label{
+  top: -12px;
+  left: 6px;
+  padding: 0 4px;
+  font-size: 0.75rem;
+}
+
+.floating-input.pickIcon button:focus + label {
+  color: var(--button-color);
+}
+
+.descText {
+  text-decoration: underline;
+  color: var(--button-color);
+}
+
+.pickIconContent {
+  overflow-x: scroll;
+}
+
+.icon {
+  filter: brightness(0);
+}
+.dark .icon {
+  filter: brightness(0) invert(1);
+}

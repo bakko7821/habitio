@@ -1,14 +1,16 @@
 import { useState } from "react"
 import { buttonColor, buttonTextColor } from "../types/variables"
 import { useNavigate } from "react-router-dom"
-import { iconsList } from "../utils/icons.links"
+import { IconsList } from "../components/IconsList"
+import { QuetionIcon } from "../assets/icons"
 
 export const CreateNewHabitPage = () => {
     const navigate = useNavigate()
 
     const [habitName, setHabitName] = useState('')
     const [habitColor, setHabitColor] = useState('')
-    const [habitIcon, setHabitIcon] = useState('')
+    const [habitIcon, setHabitIcon] = useState<string | null>(null)
+    const [isIconsOpen, setIsIconsOpen] = useState(false)
     const [habitIconLink, setHabitIconLink] = useState('')
     const [habitTime, setHabitTime] = useState('')
     const [habitNotes, setHabitNotes] = useState('')
@@ -68,36 +70,49 @@ export const CreateNewHabitPage = () => {
                         <label htmlFor="color">Цвет <span>*</span></label>
                     </div>
                 </div>
-                <div className="flex gap-4">
-                    <div className="floating-input">
-                        <select 
-                            required
-                            id="habit-icon">
-                            {/* <option value="everyday"></option>
-                            <option value="one-three-day">Раз в 3 дня</option>
-                            <option value="one-on-week">Раз в неделю</option> */}
-                            {iconsList.map((category) => (
-                                <div className="">
-                                    <p>{category.name}</p>
-                                    {category.icons.map((icon) => (
-                                        <option value={icon.id} key={icon.id}>
-                                            <img src={icon.url} alt="" className="w-[20px] h-[20px]"/>
-                                        </option>
-                                    ))}
-                                </div> 
-                            ))}
-                        </select>
-                        <label htmlFor="habit-type">Частота <span>*</span></label>
-                    </div>
-                    <div className="floating-input w-full">
-                        <input
-                            type="text" 
-                            name="iconLink" 
-                            id="iconLink"
-                            placeholder="Ссылка"
-                            value={habitIconLink}
-                            onChange={(e) => setHabitIconLink(e.target.value)}/>
-                        <label htmlFor="iconLink">Ссылка <span>*</span></label>
+                <div className="flex items-end justify-center gap-4">
+                    <div className="pickIcon flex items-center justify-center floating-input relative">
+                        <button
+                            type="button"
+                            name="pick-icon"
+                            id="pick-icon"
+                            onClick={() => setIsIconsOpen(prev => !prev)}
+                            className="w-12 h-12"
+                        >
+                            {habitIcon ? (
+                            <>
+                                <img src={habitIcon} alt="" className="w-full h-full" />
+                            </>
+                            ) : (
+                               <QuetionIcon />
+                            )}
+                        </button>
+
+                        <label htmlFor="pick-icon">Иконка <span>*</span></label>
+
+                        {isIconsOpen && (
+                            <IconsList
+                            onSelect={(iconUrl) => {
+                                setHabitIcon(iconUrl)
+                                setHabitIconLink(iconUrl) // если нужно сразу в форму
+                                setIsIconsOpen(false)
+                            }}
+                            />
+                        )}
+                        </div>
+
+                    <div className="flex flex-col items-start w-full gap-3">
+                        <a href="https://www.svgrepo.com/" className="descText text-base">Вставьте ссылку на svg</a>
+                        <div className="floating-input w-full">
+                            <input
+                                type="text" 
+                                name="iconLink" 
+                                id="iconLink"
+                                placeholder="Ссылка"
+                                value={habitIconLink}
+                                onChange={(e) => setHabitIconLink(e.target.value)}/>
+                            <label htmlFor="iconLink">Ссылка <span>*</span></label>
+                        </div>
                     </div>
                 </div>
                 <div className="floating-input">
