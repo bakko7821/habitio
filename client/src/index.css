@@ -177,3 +177,29 @@ input, select {
 .dark .pickIcon img {
   filter: brightness(0) invert(1);
 }
+
+.modal .floating-input {
+  display: flex;
+  align-items: end;
+  height: 52px;
+  transition: height 0.5s ease;
+}
+
+.modal .floating-input label {
+  background-color: transparent
+}
+
+.modal .floating-input input:focus + label,
+.modal .floating-input input:not(:placeholder-shown) + label,
+.modal .floating-input select:focus + label,
+.modal .floating-input select:not(:placeholder-shown) + label {
+  top: 4px;
+  left: 4px;
+}
+
+.modal .floating-input:has(input:focus),
+.modal .floating-input:has(input:not(:placeholder-shown)),
+.modal .floating-input:has(select:focus),
+.modal .floating-input:has(select:not(:placeholder-shown)) {
+  height: 64px;
+}
