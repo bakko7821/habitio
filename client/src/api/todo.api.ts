@@ -10,6 +10,16 @@ export const getTodayTodos = async (userId: number) => {
   return res.json()
 }
 
+export const getTodosByDay = async (userId: number, day: string) => {
+  const res = await fetch(`${API_URL}/todos/${userId}/${day}`)
+
+  if (!res.ok) {
+    throw new Error("Ошибка загрузки задач")
+  }
+
+  return res.json()
+}
+
 export const addTodo = async (userId: number, name: string) => {
   const res = await fetch(`${API_URL}/todos/new-todo`, {
     method: "POST",

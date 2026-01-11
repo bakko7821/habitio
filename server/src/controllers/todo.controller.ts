@@ -63,6 +63,40 @@ export const getTodayTodosByUser = async (req: Request, res: Response) => {
   }
 }
 
+export const getTodosByUserByDate = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params
+    const { day } = req.params
+
+    const todos = await Todo.findAll({
+      where: {
+        user_id: userId,
+        date: day,
+      },
+      attributes: ["id", "name", "checked", "date"],
+      order: [["id", "ASC"]],
+    })
+
+    if (!todos.length) {
+      return res.json([])
+    }
+
+    return res.json([
+      {
+        date: day,
+        tasks: todos.map(todo => ({
+          id: todo.id,
+          name: todo.name,
+          checked: todo.checked,
+        })),
+      },
+    ])
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "Server error" })
+  }
+}
+
 export const getTodosByUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params

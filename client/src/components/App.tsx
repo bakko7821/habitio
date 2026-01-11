@@ -22,6 +22,15 @@ function App() {
       });
   }, []);
 
+  const USER_ID = 1
+
+  const getTodayPathDate = () => {
+    const now = new Date()
+    const day = String(now.getDate()).padStart(2, "0")
+    const month = String(now.getMonth() + 1).padStart(2, "0")
+    return `${day}-${month}`
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -29,7 +38,12 @@ function App() {
           <Route path="/" element={<Navigate to="/habit" />} />
           <Route path="/habit" element={<HabitPage />} />
           <Route path="/new-habit" element={<CreateNewHabitPage />} />
-          <Route path="/todo" element={<TodoPage />} />
+
+          <Route
+            path="/todo"
+            element={<Navigate to={`/todo/${getTodayPathDate()}/${USER_ID}`} replace />}
+          />
+          <Route path="/todo/:date/:userID" element={<TodoPage />} />
           <Route path="/pomodoro" element={<PomodoroPage />} />
           <Route path="/chart" element={<ChartPage />} />
           <Route path="/profile" element={<ProfilePage />} />
