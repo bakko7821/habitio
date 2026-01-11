@@ -43,3 +43,14 @@ export const shiftPathDate = (date: string, diff: number) => {
   d.setDate(d.getDate() + diff)
   return formatToPathDate(d)
 }
+
+export const pathDateToInputDate = (pathDate: string) => {
+  const [day, month] = pathDate.split("-")
+  const year = new Date().getFullYear()
+  return `${year}-${month}-${day}`
+}
+
+export const inputDateToPathDate = (inputDate: string) => {
+  const [, month, day] = inputDate.split("-")
+  return `${day}-${month}`
+}

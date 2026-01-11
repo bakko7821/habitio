@@ -59,17 +59,18 @@ export const Checkbox = ({
             {task.name && <span className="text-base w-full">{task.name}</span>}
 
             <button 
-            type="button"
-            className="opacity-[0.6]">
-            <MoreIcon />
+                onClick={() => setIsOpenEditTask(true)}
+                type="button"
+                className="opacity-[0.6]">
+                <MoreIcon />
             </button>
             {isOpenEditTask && (
-            <EditToDoTaskModal 
-                task={task}
-                onClose={
-                    () => setIsOpenEditTask(false)
-                }
-            />
+                <EditToDoTaskModal 
+                    task={task}
+                    onClose={
+                        () => setIsOpenEditTask(false)
+                    }
+                />
             )}
         </label>
     )
