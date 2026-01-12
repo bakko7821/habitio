@@ -9,6 +9,7 @@ export interface IconsModalProps {
 }
 
 export interface ChangeDaySuccesModalProps {
+    habit: Habit;
     day: HabitDay;
     onClose: () => void;
 }
@@ -70,6 +71,7 @@ export interface HabitWeek {
 }
 
 export interface HabitDay {
+    id: number;
     date: string;
     status: boolean;
     value?: number;

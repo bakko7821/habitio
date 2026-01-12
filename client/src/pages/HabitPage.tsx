@@ -126,6 +126,7 @@ export const HabitPage = () => {
                                 )}
                                 {selectedDay && (
                                     <ChangeDaySuccesModal
+                                        habit={habit}
                                         day={selectedDay}
                                         onClose={() => setSelectedDay(null)}
                                     />

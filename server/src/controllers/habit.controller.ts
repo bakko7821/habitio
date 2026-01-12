@@ -5,6 +5,16 @@ import { HabitIcon } from "../models/Habits/HabitIcon"
 import { HabitLog } from "../models/Habits/HabitLog"
 
 export const getHabitsByUser = async (req: Request, res: Response) => {
+  const WEEK_ORDER = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+  ]
+
   const { user_id } = req.params
 
   const habits = await Habit.findAll({
@@ -35,6 +45,7 @@ export const getHabitsByUser = async (req: Request, res: Response) => {
       if (!weeksMap[dayName]) weeksMap[dayName] = []
 
       weeksMap[dayName].push({
+        id: log.id,
         date: log.date,
         status: log.status,
         value: log.value,
@@ -45,10 +56,16 @@ export const getHabitsByUser = async (req: Request, res: Response) => {
       id: habit.id,
       name: habit.name,
       icon: habit.icon,
-      weeks: Object.entries(weeksMap).map(([name, days]) => ({
+      weeks: Object.entries(weeksMap)
+      .sort(
+        ([a], [b]) =>
+          WEEK_ORDER.indexOf(a) - WEEK_ORDER.indexOf(b)
+      )
+      .map(([name, days]) => ({
         name,
         days,
-      })),
+      }))
+
     }
   })
 
@@ -103,5 +120,39 @@ export const createHabit = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Ошибка сервера" });
   }
 };
+
+export const updateHabitLogStatus = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { id } = req.params
+    const { status } = req.body
+
+    if (typeof status !== "boolean") {
+      return res.status(400).json({
+        message: "status must be boolean",
+      })
+    }
+
+    const habitLog = await HabitLog.findByPk(id)
+
+    if (!habitLog) {
+      return res.status(404).json({
+        message: "HabitLog not found",
+      })
+    }
+
+    habitLog.status = status
+    await habitLog.save()
+
+    res.json(habitLog)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      message: "Internal server error",
+    })
+  }
+}
 
 
