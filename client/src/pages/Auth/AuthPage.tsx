@@ -1,4 +1,4 @@
-export const TodoPage = () => {
+export const AuthPage = () => {
     return (
         <div className="">
             
