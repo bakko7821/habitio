@@ -13,6 +13,7 @@ export default function MainLayout() {
         { match: /^\/habits$/, title: "Habits" },
         { match: /^\/todo(\/.*)?$/, title: "Todo" },
         { match: /^\/kanban$/, title: "Kanban" },
+        { match: /^\/matrix$/, title: "Eisenhower Matrix" },
         { match: /^\/pomodoro$/, title: "Pomodoro" },
         { match: /^\/chart$/, title: "Chart" },
         { match: /^\/profile$/, title: "Profile" },
@@ -23,7 +24,7 @@ export default function MainLayout() {
     return (
         <>
             <Header title={title}/>
-            <main className="h-full w-full flex flex-col gap-2">
+            <main className="h-full w-full flex flex-col gap-4">
                 <Outlet />
             </main>
         </>

@@ -1,7 +1,12 @@
+import { NewTaskInput } from "../components/UI/Todo/NewTaskInput"
+
 export const KanbanPage = () => {
     return (
-        <div className="">
-            
-        </div>
+        <>
+            <NewTaskInput />
+            <div className="">
+
+            </div>
+        </>
     )
 }

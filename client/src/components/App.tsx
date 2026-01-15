@@ -6,6 +6,7 @@ import { TodoPage } from "../pages/TodoPage"
 import { KanbanPage } from "../pages/KanbanPage"
 import { AuthPage } from "../pages/Auth/AuthPage"
 import dateToPath from "../utils/date"
+import { EisenhowerMatrix } from "../pages/EisenhowerMatrixPage"
 
 export default function App() {
   return (
@@ -14,11 +15,12 @@ export default function App() {
         <Route path="/auth/login" element={<AuthPage />} />
       </Route>
       <Route element={<MainLayout />}>
-        <Route path="/" element={<Navigate to="/habit" />} />
+        <Route path="/" element={<Navigate to="/habits" />} />
         <Route path="/habits" element={<HabitPage />} />
         <Route path="/todo" element={<Navigate to={`/todo/${dateToPath()}`} />} />
         <Route path="/todo/:date" element={<TodoPage />} />
         <Route path="/kanban" element={<KanbanPage />} />
+        <Route path="/matrix" element={<EisenhowerMatrix />} />
       </Route>
     </Routes>
   )

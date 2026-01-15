@@ -19,6 +19,7 @@ export const NavigationMenu = ({ onClose }: NavigationMenuProps) => {
         <NavLink to={"/habits"}>Habits</NavLink>
         <NavLink to={"/todo"}>Todo</NavLink>
         <NavLink to={"/kanban"}>Kanban</NavLink>
+        <NavLink to={"/matrix"}>Eisenhower Matrix</NavLink>
         <button className="absolute right-4 top-4" onClick={onClose}><CrossIcon color={textColor} /></button>
       </nav>
     </div>
