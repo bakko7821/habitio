@@ -18,17 +18,28 @@
     font-family: "Inter", sans-serif;
 }
 
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #root {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100vw;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 1440px;
+  width: 100vw;
+  height: 100vh;
 }
 
 nav a {
     color: #1a1a1a;
     font-weight: 500;
+}
+
+button {
+  cursor: pointer;
 }

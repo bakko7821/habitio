@@ -24,6 +24,7 @@ export const EisenhowerMatrix = () => {
             <div className="w-full h-full px-4 pb-4 flex flex-col items-end justify-end">
                 <div className="w-full h-full flex">
                     <MatrixCard
+                        type="important urgent"
                         title={"Do"} 
                         description={"Do it now"} 
                         color={"#EEC5E8b3"} 
@@ -36,6 +37,7 @@ export const EisenhowerMatrix = () => {
                     />
                     <div style={{ backgroundColor: textColor }} className="w-1 h-full"></div>
                     <MatrixCard 
+                        type="important not urgent"
                         title={"Schedule"} 
                         description={"Save it for later"} 
                         color={"#D5C2F2b3"} 
@@ -45,6 +47,7 @@ export const EisenhowerMatrix = () => {
                 <div style={{ backgroundColor: textColor }} className="h-1 w-full"></div>
                 <div className="w-full h-full flex">
                     <MatrixCard 
+                        type="not important urgent"
                         title={"Delegate"} 
                         description={"Who else can do it?"} 
                         color={"#F7E1ACb3"} 
@@ -52,6 +55,7 @@ export const EisenhowerMatrix = () => {
                     />
                     <div style={{ backgroundColor: textColor }} className="w-1 h-full"></div>
                     <MatrixCard 
+                        type="not important not urgent"
                         title={"Delete"} 
                         description={"Eliminate it"} 
                         color={"#F7BFB7b3"} 

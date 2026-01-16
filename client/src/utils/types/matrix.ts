@@ -1,5 +1,5 @@
 export interface MatrixCardProps {
-    // type: string;
+    type: string;
     title: string;
     description: string;
     color: string;
