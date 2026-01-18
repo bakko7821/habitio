@@ -12,8 +12,9 @@ export const LoginForm = () => {
         e.preventDefault()
         
         try {
-            const {token} = await login(username, password)
+            const {id, token} = await login(username, password)
             localStorage.setItem("token", token)
+            localStorage.setItem("userId", id)
 
             navigate("/habits")
         } catch (error: unknown) {

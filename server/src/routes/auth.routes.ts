@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    return res.json({ token });
+    return res.json({ id: user.id, token });
   } catch (error: unknown) {
     console.error(error)
   }
