@@ -1,7 +1,10 @@
 import express from "express";
-import { authRouter } from "./routes/auth.routes";
+import cors from "cors";
+import authRouter from "./routes/auth.routes";
 
 export const app = express();
 
+app.use(cors());
 app.use(express.json());
+
 app.use("/api/auth", authRouter);

@@ -1,14 +1,24 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { bgColor, secondBgColor, textColor } from "../../utils/types/variables"
+import { login } from "../../api/auth"
 
 export const LoginForm = () => {
-    const [login, setLogin] = useState('')
+    const navigate = useNavigate()
+    const [username, setUsename] = useState('')
     const [password, setPassword] = useState('')
 
     async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        alert(`Send Login Form: ${login}:${password}`)
+        
+        try {
+            const {token} = await login(username, password)
+            localStorage.setItem("token", token)
+
+            navigate("/habits")
+        } catch (error: unknown) {
+            console.error(error);
+        }
     }
 
     return (
@@ -17,13 +27,13 @@ export const LoginForm = () => {
                 <div className="flex flex-col gap-3">
                     <div style={{backgroundColor: secondBgColor}} className="floating-input">
                         <input 
-                            value={login}
-                            onChange={(e) => setLogin(e.target.value)}
+                            value={username}
+                            onChange={(e) => setUsename(e.target.value)}
                             type="text" 
-                            name="login"
-                            id="login"
-                            placeholder="login"/>
-                        <label htmlFor="login">Login</label>
+                            name="username"
+                            id="username"
+                            placeholder="@ivanovIvan"/>
+                        <label htmlFor="username">Username</label>
                     </div>
                     <div style={{backgroundColor: secondBgColor}} className="floating-input">
                         <input 
@@ -32,7 +42,7 @@ export const LoginForm = () => {
                             type="password" 
                             name="password"
                             id="password"
-                            placeholder="password"/>
+                            placeholder="Your password"/>
                         <label htmlFor="password">Password</label>
                     </div>
                 </div>

@@ -15,7 +15,13 @@
 }
 
 .floating-input input::placeholder {
+    transition: opacity 0.25s ease-in-out;
     opacity: 0;
+    color: #9c9c9c;
+}
+
+.floating-input input:focus::placeholder {
+    opacity: 1;
 }
 
 .floating-input label {
@@ -31,7 +37,6 @@
         transform 0.25s ease,
         color 0.25s ease;
 }
-
 
 .floating-input input:focus + label,
 .floating-input input:not(:placeholder-shown) + label {

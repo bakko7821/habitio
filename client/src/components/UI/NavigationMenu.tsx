@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { CrossIcon, LogOutIcon } from "../../assets/icons";
 import { textColor } from "../../utils/types/variables";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
@@ -8,6 +8,8 @@ interface NavigationMenuProps {
 }
 
 export const NavigationMenu = ({ onClose }: NavigationMenuProps) => {
+  const navigate = useNavigate()
+  
   const languageMap: Record<string, string> = {
     ru: "🇷🇺",
     en: "🇺🇸",
@@ -26,7 +28,6 @@ export const NavigationMenu = ({ onClose }: NavigationMenuProps) => {
       transition: { delay: custom * 0.05, type: "spring", stiffness: 300, damping: 20 },
     }),
   };
-
 
   return (
     <AnimatePresence>
@@ -77,6 +78,10 @@ export const NavigationMenu = ({ onClose }: NavigationMenuProps) => {
           {/* Кнопка выхода и язык */}
           <div className="w-full flex items-center justify-end gap-2 mt-auto">
             <motion.button
+              onClick={() => {
+                localStorage.removeItem("token")
+                navigate('/')
+              }}
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}

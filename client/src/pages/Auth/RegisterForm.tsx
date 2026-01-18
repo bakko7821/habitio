@@ -1,14 +1,27 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { bgColor, secondBgColor, textColor } from "../../utils/types/variables"
+import { login, register } from "../../api/auth"
 
 export const RegisterForm = () => {
-    const [login, setLogin] = useState('')
+    const navigate = useNavigate()
+
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        alert(`Send Login Form: ${login}:${password}`)
+
+        try {
+            await register(username, email, password);
+            const {token} = await login(username, password)
+            localStorage.setItem("token", token)
+
+            navigate("/habits")
+        } catch (error: unknown) {
+            console.error(error);
+        }
     }
 
     return (
@@ -17,22 +30,35 @@ export const RegisterForm = () => {
                 <div className="flex flex-col gap-3">
                     <div style={{backgroundColor: secondBgColor}} className="floating-input">
                         <input 
-                            value={login}
-                            onChange={(e) => setLogin(e.target.value)}
+                            required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             type="text" 
-                            name="login"
-                            id="login"
-                            placeholder="login"/>
-                        <label htmlFor="login">Login</label>
+                            name="username"
+                            id="username"
+                            placeholder="@ivanovIvan"/>
+                        <label htmlFor="username">Username</label>
                     </div>
                     <div style={{backgroundColor: secondBgColor}} className="floating-input">
                         <input 
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email" 
+                            name="email"
+                            id="email"
+                            placeholder="ivanov.ivan28@mail.ru"/>
+                        <label htmlFor="email">Email</label>
+                    </div>
+                    <div style={{backgroundColor: secondBgColor}} className="floating-input">
+                        <input 
+                            required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             type="password" 
                             name="password"
                             id="password"
-                            placeholder="password"/>
+                            placeholder="Your password"/>
                         <label htmlFor="password">Password</label>
                     </div>
                 </div>
