@@ -39,7 +39,7 @@
 }
 
 .floating-input input:focus + label,
-.floating-input input:not(:placeholder-shown) + label {
+.floating-input input:not(:placeholder-shown) + label{
     transform: scale(0.75);
     color: red;
 }
