@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { PlusIcon } from "../assets/icons";
-import { Habit } from "../components/UI/Habit/Habit";
-import type { HabitProps } from "../utils/types/habit";
-import { secondTextColor } from "../utils/types/variables";
-import { getAllHabit } from "../api/habits";
+import { PlusIcon } from "../../assets/icons";
+import { Habit } from "../../components/UI/Habit/Habit";
+import type { HabitProps } from "../../utils/types/habit";
+import { secondTextColor } from "../../utils/types/variables";
+import { getAllHabit } from "../../api/habits";
 import { NavLink } from "react-router-dom";
 
 export const HabitPage = () => {

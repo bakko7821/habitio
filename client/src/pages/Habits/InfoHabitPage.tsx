@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom"
-import { ChartComponent } from "../components/UI/Chart/ChartComponent"
-import { CalendarChart } from "../components/UI/Chart/CalendarChart"
-import { ResultChart } from "../components/UI/Chart/ResultChart"
-import { StreakChart } from "../components/UI/Chart/StreakChart"
+import { ChartComponent } from "../../components/UI/Chart/ChartComponent"
+import { CalendarChart } from "../../components/UI/Chart/CalendarChart"
+import { ResultChart } from "../../components/UI/Chart/ResultChart"
+import { StreakChart } from "../../components/UI/Chart/StreakChart"
 
 export const InfoHabitPage = () => {
     const {id} = useParams()

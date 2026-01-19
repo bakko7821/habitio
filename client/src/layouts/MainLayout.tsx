@@ -10,6 +10,7 @@ export default function MainLayout() {
     const pathname = location.pathname
     const titleMap: Array<{ match: RegExp; title: string }> = [
         { match: /^\/habits$/, title: "Habits" },
+        { match: /^\/new-habit$/, title: "New Habit" },
         { match: /^\/todo(\/.*)?$/, title: "Todo" },
         { match: /^\/kanban$/, title: "Kanban" },
         { match: /^\/matrix$/, title: "Eisenhower Matrix" },

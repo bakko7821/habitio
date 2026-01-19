@@ -51,3 +51,14 @@ input {
   outline: none;
   background: transparent;
 }
+
+.react-colorful {
+  border-radius: 0px;
+  width: 100% !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.react-colorful__saturation, .react-colorful__interactive {
+  border-radius: 0px !important;
+}
+
