@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import type { HabitProps } from "../../../utils/types/habit.ts"
-import { secondBgColor, secondTextColor, textColor } from "../../../utils/types/variables.ts"
-import { CrossIcon, TickIcon } from "../../../assets/icons.tsx";
+import { secondBgColor, textColor } from "../../../utils/types/variables.ts"
+import { LogComponent } from "../../../pages/Habits/LogComponent.tsx";
 
 interface HabitComponentProps {
     habit: HabitProps;
@@ -22,29 +22,7 @@ export const Habit = ({habit}: HabitComponentProps) => {
             </div>
             <div className="flex items-center gap-3">
                 {habit.logs.map((log) => (
-                    <div
-                        key={log.date}
-                        style={{
-                            backgroundColor:
-                                habit.type === "Value"
-                                    ? "transparent"
-                                    : !log.isDone && !log.isSkip
-                                        ? secondTextColor
-                                        : "transparent",
-                        }}
-                        className="w-6 h-6 rounded-sm flex items-center justify-center"
-                    >
-                        {habit.type === "Value" ? (
-                            <span style={{ color: habit.color }} className="text-base font-medium">
-                                {log.value === null ? 0 : log.value}
-                            </span>
-                        ) : (
-                            <>
-                                {log.isDone && <TickIcon width={24} height={24} color={habit.color} />}
-                                {log.isSkip && <CrossIcon width={24} height={24} color={habit.color} />}
-                            </>
-                        )}
-                    </div>
+                    <LogComponent log={log} habit={habit}/>
                 ))}
             </div>
         </div>

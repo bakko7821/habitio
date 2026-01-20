@@ -1,6 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Header } from "../components/Header";
-import { useEffect, useState } from "react";
 import useAuthGuard from "../hooks/useAuthGuard";
 
 export default function MainLayout() {
@@ -26,39 +25,8 @@ export default function MainLayout() {
         return match ? Number(match[1]) : null;
     })();
 
-    const [titleInfo, setTitleInfo] = useState('');
+    const titleInfo = `Привычка: ${habitId}`;
 
-    useEffect(() => {
-        if (!isOpenHabitInfo || habitId === null) return;
-
-        // let cancelled = false;
-
-        // const loadHabitTitle = async () => {
-        //     try {
-        //         const res = await fetch(`/api/habits/${habitId}`);
-        //         const data = await res.json();
-
-        //         if (!cancelled) {
-        //             setTitleInfo(data.title);
-        //         }
-        //     } catch {
-        //         if (!cancelled) {
-        //             setTitleInfo("Привычка");
-        //         }
-        //     }
-        // };
-
-        // loadHabitTitle();
-
-        // return () => {
-        //     cancelled = true;
-        // };
-
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setTitleInfo(`Привычка: ${habitId}`)
-    }, [isOpenHabitInfo, habitId]);
-
-    
     return (
         <>
             {!isOpenHabitInfo ? <Header title={title}/> : <Header isOpenHabitInfo={isOpenHabitInfo} title={titleInfo}/>}
