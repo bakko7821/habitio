@@ -9,4 +9,4 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
-app.use("/api/habit", habitRouter);
+app.use("/api/habits", habitRouter);

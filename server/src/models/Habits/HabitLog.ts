@@ -31,6 +31,18 @@ export class HabitLog extends Model {
   })
   value!: number;
 
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: true,
+  })
+  isDone!: boolean;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: true,
+  })
+  isSkip!: number;
+
   @ForeignKey(() => Habit)
   @Column({
     type: DataType.INTEGER,

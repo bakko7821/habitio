@@ -1,7 +1,8 @@
 import { Request, Response, Router } from "express";
 import { authMiddleware, AuthRequest } from "../middlewares/authMiddleware";
 import { Habit } from "../models/Habits/Habit";
-import { where } from "sequelize";
+import { getTodayDate } from "../utils/date";
+import { HabitLog } from "../models/Habits/HabitLog";
 
 export const router = Router();
 
@@ -40,26 +41,58 @@ router.post("/new-habit", authMiddleware, async(req: AuthRequest, res: Response)
     }
 })
 
-router.get("/get-all-habits", authMiddleware, async(req: AuthRequest, res: Response) => {
+router.get("/get-all-habits", authMiddleware, async (req: AuthRequest, res: Response) => {
     try {
         const userId = req.user?.id;
-
         if (!userId) {
-            return res.status(401).json({
-                message: "Не авторизован",
+            return res.status(401).json({ message: "Не авторизован" });
+        }
+
+        const today = getTodayDate();
+
+        const habits = await Habit.findAll({
+            where: { ownerId: userId },
+        });
+
+        const result = [];
+
+        for (const habit of habits) {
+            let logs = await HabitLog.findAll({
+                where: { habitId: habit.id },
+                order: [['date', 'DESC']],
+            });
+
+            const hasTodayLog = logs.some(log => log.date === today);
+
+            if (!hasTodayLog) {
+                const newLog = await HabitLog.create({
+                    habitId: habit.id,
+                    date: today,
+                    value: null,
+                    isDone: null,
+                    isSkip: null,
+                });
+
+                logs.unshift(newLog);
+            }
+
+            result.push({
+                id: habit.id,
+                name: habit.name,
+                color: habit.color,
+                type: habit.type,
+                logs,
             });
         }
 
-        const data = await Habit.findAll({ where: { ownerId: userId } })
+        return res.status(200).json(result);
 
-        return res.status(200).json(data);
-
-    } catch (error: unknown) {
+    } catch (error) {
         console.error(error);
         return res.status(500).json({
-            message: "Ошибка при получение всех привычек",
+            message: "Ошибка при получении привычек",
         });
     }
-})
+});
 
 export default router

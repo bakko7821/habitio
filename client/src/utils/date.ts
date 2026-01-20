@@ -1,3 +1,43 @@
+interface DayItem {
+    number: string; // "20"
+    name: string;   // "Tuesday"
+    fullDate: string; // "20-01-2026" (удобно для логов)
+}
+
+export const getLastDays = (daysCount: number): DayItem[] => {
+    const result: DayItem[] = [];
+
+    const weekDays = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
+
+    const today = new Date();
+
+    for (let i = 0; i < daysCount; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - i);
+
+        const dayNumber = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+
+        result.push({
+            number: dayNumber,
+            name: weekDays[date.getDay()],
+            fullDate: `${dayNumber}-${month}-${year}`,
+        });
+    }
+
+    return result;
+};
+
+
 export default function dateToPath() {
     const now = new Date()
 
