@@ -11,3 +11,16 @@ export const getAllHabit = async () => {
 
     return data;
 }
+
+export const getHabitFromID = async (habitId: number) => {
+    const { data } = await api.get(`/habits/get-habit-from-id/${habitId}`);
+
+    return data;
+}
+
+export const deleteHabitFromID = async (habitId: number) => {
+    const { data } = await api.get(`/habits/delete-habit-from-id/${habitId}`);
+
+    return data;
+}
+

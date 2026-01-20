@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import type { HabitProps } from "../../../utils/types/habit.ts"
 import { secondBgColor, secondTextColor, textColor } from "../../../utils/types/variables.ts"
-import { CrossIcon, MinusIcon, TickIcon } from "../../../assets/icons.tsx";
+import { CrossIcon, TickIcon } from "../../../assets/icons.tsx";
 
 interface HabitComponentProps {
     habit: HabitProps;
@@ -9,6 +9,7 @@ interface HabitComponentProps {
 
 export const Habit = ({habit}: HabitComponentProps) => {
     const navigate = useNavigate()
+
     return (
         <div 
             onClick={() => navigate(`/habit/${habit.id}/info`)}
@@ -21,25 +22,27 @@ export const Habit = ({habit}: HabitComponentProps) => {
             </div>
             <div className="flex items-center gap-3">
                 {habit.logs.map((log) => (
-                    <div 
+                    <div
+                        key={log.date}
                         style={{
-                            backgroundColor: !log.isDone && !log.isSkip ? secondTextColor : "transparent",
-                        }} 
-                        className="w-6 h-6 rounded-sm"
+                            backgroundColor:
+                                habit.type === "Value"
+                                    ? "transparent"
+                                    : !log.isDone && !log.isSkip
+                                        ? secondTextColor
+                                        : "transparent",
+                        }}
+                        className="w-6 h-6 rounded-sm flex items-center justify-center"
                     >
-                        {!log.isDone ? null : (
-                            <TickIcon 
-                                width={24}
-                                height={24}
-                                color={habit.color}
-                            />
-                        )}
-                        {!log.isSkip ? null : (
-                           <CrossIcon 
-                                width={24}
-                                height={24}
-                                color={habit.color}
-                           /> 
+                        {habit.type === "Value" ? (
+                            <span style={{ color: habit.color }} className="text-base font-medium">
+                                {log.value === null ? 0 : log.value}
+                            </span>
+                        ) : (
+                            <>
+                                {log.isDone && <TickIcon width={24} height={24} color={habit.color} />}
+                                {log.isSkip && <CrossIcon width={24} height={24} color={habit.color} />}
+                            </>
                         )}
                     </div>
                 ))}
