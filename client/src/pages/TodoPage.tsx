@@ -5,29 +5,57 @@ import { NewTaskInput } from "../components/UI/Todo/NewTaskInput";
 import { useState, useEffect } from "react";
 import { ToDoTask } from "../components/UI/Todo/ToDoTask";
 import { motion, AnimatePresence } from "framer-motion"; // библиотека для анимаций
+import { type TodoTaskProps } from "../utils/types/todo";
+import { createNewTodo, getAllTodosFromDate } from "../api/todos";
 
 export const TodoPage = () => {
   const { date } = useParams();
   const navigate = useNavigate();
 
   const [displayDate, setDisplayDate] = useState(date);
+  const [todos, setTodos] = useState<TodoTaskProps[]>([])
+  const [loading, setLoading] = useState(true)
+  const [newTaskValue, setNewTaskValue] = useState("");
+
 
   useEffect(() => {
     setDisplayDate(date);
   }, [date]);
 
-  const [newTaskValue, setNewTaskValue] = useState("");
+  useEffect(() => {
+    const loadTodos = async () => {
+      try {
+        const data = await getAllTodosFromDate(`${date}-2026`);
+        setTodos(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleCreateNewTodoTask = () => {
-    console.log(`NEW TODO: ${newTaskValue}`);
+    loadTodos();
+  }, [date]);
+
+  const handleCreateNewTodoTask = async () => {
+    if (!newTaskValue.trim()) {
+      alert('Поле не должно быть пустым');
+      return;
+    }
+
+    try {
+      const newTodo = await createNewTodo(newTaskValue);
+
+      setTodos(prev => [...prev, newTodo]);
+      setNewTaskValue('');
+    } catch (e) {
+      console.error(e);
+    }
   };
-
-  const todos = [
-    { id: 0, title: "Купить масло", isDone: false },
-    { id: 1, title: "Купить молоко", isDone: true },
-    { id: 2, title: "Купить хлеб", isDone: false },
-    { id: 3, title: "Купить собачку", isDone: true },
-  ];
+  
+  if (loading) {
+    return <div className="px-4 py-2">Загрузка...</div>;
+  }
 
   return (
     <>
@@ -84,7 +112,8 @@ export const TodoPage = () => {
             key={todo.id}
             id={todo.id}
             title={todo.title}
-            isDone={todo.isDone}
+            isDone={todo.isDone} 
+            date={todo.date}          
           />
         ))}
       </div>

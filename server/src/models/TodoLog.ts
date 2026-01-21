@@ -29,7 +29,7 @@ export class TodoLog extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  task!: string;
+  title!: string;
 
   @Column({
     type: DataType.BOOLEAN,

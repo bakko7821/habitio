@@ -19,7 +19,7 @@ router.post('/new-todo-task', authMiddleware, async (req: AuthRequest, res: Resp
 
         const task = await TodoLog.create({
             date: getTodayDate(),
-            task: name,
+            title: name,
             ownerId: userId,
             isDone: false,
         });
