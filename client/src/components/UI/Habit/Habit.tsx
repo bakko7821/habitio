@@ -9,6 +9,7 @@ interface HabitComponentProps {
 
 export const Habit = ({habit}: HabitComponentProps) => {
     const navigate = useNavigate()
+    console.log(habit.logs)
 
     return (
         <div 
@@ -20,8 +21,8 @@ export const Habit = ({habit}: HabitComponentProps) => {
                 <div style={{backgroundColor: habit.color}} className="w-6 h-6 rounded-sm"></div>
                 <p style={{color: textColor}} className="text-base font-medium">{habit.name}</p>
             </div>
-            <div className="flex items-center gap-3">
-                {habit.logs.map((log) => (
+            <div className="flex items-center justify-start gap-3 min-w-[132px]">
+                {habit.logs.slice(0, 4).map((log) => (
                     <LogComponent log={log} habit={habit}/>
                 ))}
             </div>
