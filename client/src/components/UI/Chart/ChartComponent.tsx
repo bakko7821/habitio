@@ -18,7 +18,7 @@ interface MenuParamsProps {
 }
 
 export interface RenderChartProps {
-    habit: HabitProps | undefined;
+  habit: HabitProps | undefined;
 }
 
 export const ChartComponent = ({
@@ -46,7 +46,6 @@ export const ChartComponent = ({
 
         {!isHaveMenu ? null : (
           <div className="absolute top-3.5 right-4 z-48">
-            {/* Кнопка + выбранное значение */}
             <motion.div
               className="flex justify-between items-center gap-1 cursor-pointer min-w-25"
               onClick={() => setIsOpenDropDown((prev) => !prev)}
@@ -101,7 +100,7 @@ export const ChartComponent = ({
         )}
       </div>
 
-      <div className={!isHaveMenu ? "px-4 py-2" : "px-4 py-2 min-h-40"}>
+      <div className="relative overflow-hidden w-full px-4 py-2">
         {content}
       </div>
     </div>

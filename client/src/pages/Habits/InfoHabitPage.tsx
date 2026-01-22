@@ -71,11 +71,14 @@ export const InfoHabitPage = () => {
                     </button>
                 </div>
             </div>
-            <div className="px-4 flex items-center justify-start gap-2">
-                {habit?.logs.map((log) => (
-                    <LogComponent borderColor={true} log={log} habit={habit} />
-                ))}
-            </div>
+            <ChartComponent 
+                title={"Calendar"}
+                isHaveMenu={false}
+                selectedParams={
+                    {name: 'Week', isActive: true}
+                }
+                content={<CalendarChart habit={habit || undefined} />}
+            />
             <ChartComponent 
                 title={"Best streak"} 
                 isHaveMenu={false}
@@ -94,19 +97,6 @@ export const InfoHabitPage = () => {
                     {name: 'Week', isActive: true}
                 }
                 content={<ResultChart habit={undefined} />}
-            />
-            <ChartComponent 
-                title={"Calendar"}
-                isHaveMenu={true}
-                menuParams={[
-                    {name: 'Week', isActive: true},
-                    {name: 'Month', isActive: true},
-                    {name: 'Quarter', isActive: true},
-                ]}
-                selectedParams={
-                    {name: 'Week', isActive: true}
-                }
-                content={<CalendarChart habit={undefined} />}
             />
         </>
     )

@@ -9,8 +9,7 @@ interface HabitComponentProps {
 
 export const Habit = ({habit}: HabitComponentProps) => {
     const navigate = useNavigate()
-    console.log(habit.logs)
-
+    
     return (
         <div 
             onClick={() => navigate(`/habit/${habit.id}/info`)}

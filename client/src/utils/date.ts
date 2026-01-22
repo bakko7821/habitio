@@ -1,8 +1,85 @@
 interface DayItem {
-    number: string; // "20"
-    name: string;   // "Tuesday"
-    fullDate: string; // "20-01-2026" (удобно для логов)
+  number: string;
+  name: string;
+  fullDate: string;
 }
+
+interface MonthDaysItem {
+  name: string;
+  days: {
+    date: string;
+  }[];
+}
+
+export const getToday = () => {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d;
+};
+
+export const getLastMonthsDays = (
+  monthsCount: number
+): MonthDaysItem[] => {
+  const result: MonthDaysItem[] = [];
+
+  const monthNames = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+  ];
+
+  const today = getToday()
+
+  for (let i = monthsCount - 1; i >= 0; i--) {
+    const baseDate = new Date(
+      today.getFullYear(),
+      today.getMonth() - i,
+      1
+    );
+
+    const year = baseDate.getFullYear();
+    const monthIndex = baseDate.getMonth();
+    const monthName = monthNames[monthIndex];
+
+    const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+    const days: { date: string }[] = [];
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const day = String(d).padStart(2, "0");
+      const month = String(monthIndex + 1).padStart(2, "0");
+
+      days.push({
+        date: `${day}-${month}-${year}`,
+      });
+    }
+
+    result.push({
+      name: monthName,
+      days,
+    });
+  }
+
+  return result;
+};
+
+export const getMonthStartOffset = (fullDate: string): number => {
+  const [day, month, year] = fullDate.split("-").map(Number)
+
+  const firstDayOfMonth = new Date(year, month - 1, 1).getDay()
+
+  // делаем понедельник первым днём недели
+  return (firstDayOfMonth + 6) % 7
+}
+
 
 export const getLastDays = (daysCount: number): DayItem[] => {
     const result: DayItem[] = [];
@@ -17,7 +94,7 @@ export const getLastDays = (daysCount: number): DayItem[] => {
         "Saturday",
     ];
 
-    const today = new Date();
+    const today = getToday();
 
     for (let i = 0; i < daysCount; i++) {
         const date = new Date(today);
