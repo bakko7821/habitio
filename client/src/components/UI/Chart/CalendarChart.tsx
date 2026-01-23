@@ -7,7 +7,7 @@ import type { RenderChartProps } from "./ChartComponent";
 import { useState } from "react";
 
 export const CalendarChart = ({ habit }: RenderChartProps) => {
-    const [isOpenEditDayHabitModal, setIsOpenEditDayHabitModal] = useState(false)
+    const [selectedDay, setSelectedDay] = useState<string | null>(null);
     const logsMap = new Map<string, HabitLog>();
     habit?.logs?.forEach((log) => logsMap.set(log.date, log));
 
@@ -49,25 +49,30 @@ export const CalendarChart = ({ habit }: RenderChartProps) => {
                     }
 
                     return (
-                    <div
-                        key={day.date}
-                        className={`flex rounded-sm items-center justify-center p-1 w-6 h-6 ${bgColor}`}
-                        style={inlineStyle}
-                        onClick={() => setIsOpenEditDayHabitModal(true)}
-                    >
-                        <p style={{color: getContrastColor(habit?.color)}} className="text-xs font-medium">
-                        {formatDayNumber(day.date)}
-                        </p>
-
-                        {!isOpenEditDayHabitModal ? null : (
-                            <EditDayHabitModal />
-                        )}
-                    </div>
+                        <div
+                            key={day.date}
+                            className={`flex rounded-sm items-center justify-center p-1 w-6 h-6 ${bgColor}`}
+                            style={inlineStyle}
+                            onClick={() => setSelectedDay(day.date)}
+                        >
+                            <p style={{color: getContrastColor(habit?.color)}} className="text-xs font-medium">
+                            {formatDayNumber(day.date)}
+                            </p>
+                        </div>
                     );
+                    
                 })}
                 </div>
             </div>
             ))}
+            {selectedDay && (
+                <EditDayHabitModal
+                    habit={habit}
+                    day={selectedDay}
+                    onSave={() => console.log('save')}
+                    onClose={() => setSelectedDay(null)}
+                />
+            )}
         </div>
     );
 };
