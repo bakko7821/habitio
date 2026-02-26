@@ -45,7 +45,6 @@ export const router = createBrowserRouter([
             element: <ProfilePage />,
             handle: { title: "Профиль" },
           },
-          { path: "*", element: <NotFoundGate /> },
         ],
       },
     ],

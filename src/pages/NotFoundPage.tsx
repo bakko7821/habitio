@@ -10,7 +10,7 @@ export function NotFoundGate() {
   }, []);
 
   return (
-    <div style={{ padding: 40 }}>
+    <div className="flex flex-col gap-2 items-center justify-center">
       <h1>404</h1>
       <p>Страница не найдена</p>
       <Link to={isAuthed ? "/" : "/login"}>
