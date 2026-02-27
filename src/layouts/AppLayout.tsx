@@ -16,7 +16,7 @@ export function AppLayout() {
   return (
     <>
       <Header />
-      <main>
+      <main className="pt-19.5">
         <Outlet />
       </main>
     </>
