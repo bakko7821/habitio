@@ -10,6 +10,8 @@ import { NotFoundGate } from "../pages/NotFoundPage";
 import ProfilePage from "../pages/ProfilePage";
 import RecoveryPage from "../pages/RecoveryPage";
 import RegisterPage from "../pages/RegisterPage";
+import ChartPage from "../pages/ChartPage";
+import HabitPage from "../pages/HabitPage";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +46,16 @@ export const router = createBrowserRouter([
             path: "/profile",
             element: <ProfilePage />,
             handle: { title: "Профиль" },
+          },
+          {
+            path: "/chart",
+            element: <ChartPage />,
+            handle: { title: "Статистика" },
+          },
+          {
+            path: "/habits",
+            element: <HabitPage />,
+            handle: { title: "Привычки" },
           },
         ],
       },
