@@ -16,7 +16,7 @@ export function AppLayout() {
   return (
     <>
       <Header />
-      <main className="pt-20">
+      <main className="pt-24 flex flex-col gap-2 items-start justify-start">
         <Outlet />
       </main>
     </>
